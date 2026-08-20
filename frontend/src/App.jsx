@@ -8,6 +8,9 @@ import WarrantyList from './components/WarrantyList';
 import WarrantyModal from './components/WarrantyModal';
 import WarrantyDetailModal from './components/WarrantyDetailModal';
 
+// Set your Render backend Web Service URL here (no trailing slash)
+const API_BASE_URL = 'https://YOUR-BACKEND-SERVICE-NAME.onrender.com';
+
 const CATEGORIES = ['Electronics', 'Home Appliances', 'Kitchen', 'Travel', 'Furniture', 'Other'];
 
 function MainApp() {
@@ -23,7 +26,7 @@ function MainApp() {
   const fetchWarranties = async () => {
     if (!token) return;
     try {
-      const res = await fetch('/api/warranties', {
+      const res = await fetch(`${API_BASE_URL}/api/warranties`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.ok) {
@@ -66,7 +69,9 @@ function MainApp() {
   const handleSaveProduct = async (formData) => {
     try {
       const method = editingProduct ? 'PUT' : 'POST';
-      const url = editingProduct ? `/api/warranties/${editingProduct._id}` : '/api/warranties';
+      const url = editingProduct 
+        ? `${API_BASE_URL}/api/warranties/${editingProduct._id}` 
+        : `${API_BASE_URL}/api/warranties`;
 
       const res = await fetch(url, {
         method,
@@ -80,6 +85,7 @@ function MainApp() {
       if (res.ok) {
         fetchWarranties();
         setEditingProduct(null);
+        setIsFormModalOpen(false);
       }
     } catch (error) {
       console.error('Error saving warranty:', error);
@@ -89,7 +95,7 @@ function MainApp() {
   const handleDeleteProduct = async (id) => {
     if (window.confirm('Are you sure you want to delete this warranty record?')) {
       try {
-        const res = await fetch(`/api/warranties/${id}`, {
+        const res = await fetch(`${API_BASE_URL}/api/warranties/${id}`, {
           method: 'DELETE',
           headers: { Authorization: `Bearer ${token}` },
         });
