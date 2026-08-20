@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Shield, Eye, EyeOff, Lock, Mail, User } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
+// Set your backend Render service URL here (without a trailing slash)
+const API_BASE_URL = 'https://digital-warranty-vault.onrender.com';
+
 export default function Auth() {
   const { login } = useAuth();
   const [isRegister, setIsRegister] = useState(false);
@@ -30,7 +33,10 @@ export default function Auth() {
     }
 
     setLoading(true);
-    const endpoint = isRegister ? '/api/auth/register' : '/api/auth/login';
+    // Prepended API_BASE_URL to the endpoints
+    const endpoint = isRegister 
+      ? `${API_BASE_URL}/api/auth/register` 
+      : `${API_BASE_URL}/api/auth/login`;
 
     try {
       const res = await fetch(endpoint, {

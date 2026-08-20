@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 const AuthContext = createContext();
 
 // Set your Render backend URL here
-const API_BASE_URL = 'https://digital-warranty-vault.onrender.com';
+const API_BASE_URL = 'https://digital-warranty-vault.onrender.com/';
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
