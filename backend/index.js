@@ -25,6 +25,11 @@ mongoose
   .then(() => console.log('MongoDB Connected Successfully'))
   .catch((err) => console.error('MongoDB Connection Error:', err));
 
+// --- ROOT / HEALTH CHECK ROUTE ---
+app.get('/', (req, res) => {
+  res.send('Warranty Vault API is running successfully!');
+});
+
 // --- AUTH ROUTES ---
 
 // POST /api/auth/register
